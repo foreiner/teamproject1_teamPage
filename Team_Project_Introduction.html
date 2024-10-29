@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team_Project_Introduction</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>samsung</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+      :root {
+        --color-main: #0fe4d2;
+      }
+
+      body {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+      }
+
+      div {
+        display: inline-block;
+      }
+
+      .bigger {
+        margin: 0;
+        font-size: 60px;
+        font-weight: 800;
+        padding: 20px;
+        text-transform: uppercase;
+        color: color-mix(in oklab, var(--color-main) 40%, black);
+        display: inline-block;
+        position: relative;
+      }
+
+      .text {
+        max-width: 600px;
+        width: 100%;
+        line-height: 24px;
+        text-align: left;
+        color: #404040;
+        padding: 20px;
+      }
+
+      .text.txt-center {
+        text-align: center;
+      }
+
+      .text a {
+        color: var(--color-main);
+      }
+
+      /* Animation Styles */
+      .has-animation {
+        position: relative;
+      }
+
+      .has-animation p,
+      .has-animation img {
+        opacity: 0;
+      }
+
+      .has-animation.animate-in p,
+      .has-animation.animate-in img {
+        animation: textHidden 0.1s 1.1s forwards;
+      }
+
+      .has-animation.animate-in:before,
+      .has-animation.animate-in:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+        z-index: 10;
+      }
+
+      .has-animation.animate-in:before {
+        background-color: var(--color-main);
+      }
+
+      .has-animation.animate-in:after {
+        background-color: color-mix(in oklab, var(--color-main) 40%, black);
+        animation-delay: 0.5s;
+      }
+
+      /* Left-to-right animation */
+      .has-animation.animation-ltr.animate-in:before {
+        animation: revealLTR 1.8s ease;
+      }
+
+      .has-animation.animation-ltr.animate-in:after {
+        animation: revealLTR 1s 0.6s ease;
+      }
+
+      /* Right-to-left animation */
+      .has-animation.animation-rtl.animate-in:before {
+        animation: revealRTL 1.8s ease;
+      }
+
+      .has-animation.animation-rtl.animate-in:after {
+        animation: revealRTL 1s 0.6s ease;
+      }
+
+      /* Keyframes */
+      @keyframes revealRTL {
+        0% {
+          width: 0;
+          right: 0;
+        }
+
+        65% {
+          width: 100%;
+          right: 0;
+        }
+
+        100% {
+          width: 0;
+          right: 100%;
+        }
+      }
+
+      @keyframes revealLTR {
+        0% {
+          width: 0;
+          left: 0;
+        }
+
+        65% {
+          width: 100%;
+          left: 0;
+        }
+
+        100% {
+          width: 0;
+          left: 100%;
+        }
+      }
+
+      @keyframes textHidden {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('.has-animation').each(function (index) {
+          $(this).delay($(this).data('delay')).queue(function () {
+            $(this).addClass('animate-in');
+          });
+        });
+      });
+
+    </script>
+
+    <!-- 파이어베이스 연결
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyC1wWny12KYkbYdIFau3Y76ok7_JNvCd_8",
+        authDomain: "team-page-project.firebaseapp.com",
+        projectId: "team-page-project",
+        storageBucket: "team-page-project.appspot.com",
+        messagingSenderId: "689429273007",
+        appId: "1:689429273007:web:1fcc407fe507231e94775a",
+        measurementId: "G-PEBGFX0KP5"
+      };
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script> -->
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCU4oi_aEa2y1Ckei8Qy5oJKLngHPZO76Q",
+        authDomain: "sparta-add41.firebaseapp.com",
+        projectId: "sparta-add41",
+        storageBucket: "sparta-add41.appspot.com",
+        messagingSenderId: "1033054675550",
+        appId: "1:1033054675550:web:e64fd795d274f4f83a0acf",
+        measurementId: "G-FTLX3Q951E"
+      };
+
+      // Firebase 초기화
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Firestore 데이터 읽기 및 카드 생성
+      async function displayTeamIntro() {
+        const querySnapshot = await getDocs(collection(db, "team-intro"));
+
+        querySnapshot.forEach((doc) => {
+          let row = doc.data();
+          let description = row['description']; // 'description' 필드 가져오기
+
+          // 템플릿 HTML 생성
+          let temp_html = `<p class="text">${description}</p>`;
+
+          // #description_area 요소에 템플릿 추가
+          $("#description_area").append(temp_html);
+        });
+      }
+
+      displayTeamIntro();
+    </script>
+  </head>
+
+  <body>
+    <br>
+    <div class="has-animation animation-ltr" data-delay="10">
+      <p class="bigger">팀프로젝트 소개</p>
+    </div>
+
+    <br>
+    <br>
+    <div id="description_area" class="has-animation animation-rtl" data-delay="1000">
+    </div>
+
+    <br>
+    <br>
+    <div class="has-animation animation-ltr" data-delay="1500">
+      <p class="text txt-center">Samsung <a
+          href="https://teamsparta.notion.site/SAMSUNG-3-1282dc3ef5148082922bc96ecb4fe739">Team Notion</a> <br>
+        We can do it!
+      </p>
+    </div>
+    <br>
+    <br>
+    <div class="has-animation animation-rtl" data-delay="2000">
+      <img
+        src="https://images.prismic.io/figaroimmo/943be1d1-6e3a-4c59-a5f1-97ce8b6ea147_lyon-confinement.jpg?auto=compress,format&rect=0,0,1000,667&w=720&h=480"
+        width="600" />
+    </div>
+
+    <br>
+
+
+
+
+  </body>
+
+  </html>
+</body>
+
+</html>
