@@ -254,15 +254,14 @@
 
     function list_group_item_onClick()
     {
-            event.preventDefault();
 
-            const info = $(this).data('info');
-            const imgSrc = $(this).data('img');
-            const mbti = $(this).data('mbti');
-            const strength = $(this).data('strength');
-            const greeting = $(this).data('greeting');
-            const blog = $(this).data('blog');
-            const github = $(this).data('github');
+            const info = event.target.getAttribute("data-info");
+            const imgSrc = event.target.getAttribute('data-img');
+            const mbti = event.target.getAttribute('data-mbti');
+            const strength = event.target.getAttribute('data-strength');
+            const greeting = event.target.getAttribute('data-greeting');
+            const blog = event.target.getAttribute('data-blog');
+            const github = event.target.getAttribute('data-github');
 
             const currentInfo = $('#info-display').html();
 
