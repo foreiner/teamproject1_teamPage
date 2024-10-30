@@ -52,6 +52,38 @@
             height: 500px;
             margin: 20px auto 50px auto;
         }
+
+        .Log-Block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height:30px;
+            border-bottom: 1px solid gray;
+        }
+
+        .Log-id
+        {
+            padding-left: 5px;
+            display: flex;
+            gap : 10px;
+        }
+        .Log-id div:first-child
+        {
+            width: 100px;
+            border-right: 1px solid grey;
+            padding-left: 10px;
+        }
+        .log-id div:last-child
+        {
+            width:100px;
+        }
+        .Log-date
+        {
+            display: flex;
+            padding-right: 5px;
+            padding-left : 5px;
+            border-left: 1px solid grey;
+        }
     </style>
 
     <script type="module">
@@ -59,7 +91,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+        import { getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
         // Firebase 구성 정보 설정
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -76,11 +108,17 @@
         // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        //
 
         $("#id_Write-Button").click(async function () {
             let name = $('#guest_name').val();
             let comment = $('#guest_comment').val();
+            if (comment == "" || name == "") {
+                let blank = '내용';
+                if (name == "") blank = '이름';
+                alert(`${blank}을 입력해주세요.`);
+                return;
+            }
+
             let date = new Date();
             let date_Hour = date.getHours();
             let jyp = 'Am'
@@ -103,7 +141,8 @@
             window.location.reload();
         })
 
-        let docs = await getDocs(collection(db, "DB_guestLog"));
+        //let docs = await getDocs(collection(db, "DB_guestLog"));
+        let docs = await getDocs(query(collection(db, "DB_guestLog"), orderBy("date", "asc")));
         docs.forEach((doc) => {
             let row = doc.data();
             console.log(row);
@@ -113,11 +152,18 @@
             let date = row['date'];
 
             let log_guestHtml = `
-                    <div class="logs">
-                        <h5 class="log">${name} : ${comment} (${date})</h5>
+                <div class = "Log-Block">
+                    <div class="Log-id">
+                        <div>${name}</div>
+                        <div>${comment}</div>
                     </div>
+                    <div class="Log-date">
+                        <div>${date}</div>
+                    </div>
+                </div>
             `;
-            $('#LogBlock').append(log_guestHtml);
+
+            $('#LogContainer').append(log_guestHtml);
         });
     </script>
 </head>
@@ -140,13 +186,16 @@
             <button id="id_Write-Button" type="button" class="btn btn-outline-primary">기록하기</button>
         </div>
     </div>
-    <div class="Log-Container">
-        <div id="LogBlock">
-            <div class="logs">
-                <h5 class="log">${name} : ${comment} (${date})</h5>
+    <div class="Log-Container" id = "LogContainer">
+        <!-- <div class="Log-Block" id="LogBlock">
+            <div class="Log-id">
+                <div>이름</div>
+                <div>댓글</div>
             </div>
-        </div>
-    </div>
+            <div class="Log-date">
+                <div>날짜</div>
+            </div>
+        </div> -->
     </div>
 </body>
 
