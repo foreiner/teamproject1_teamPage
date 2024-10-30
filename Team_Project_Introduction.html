@@ -45,8 +45,9 @@
       .container {
         max-width: 800px;
         text-align: center;
-        transform: translateX(-100px); /* 좌측으로 20px 이동 */
-    }
+        transform: translateX(-100px);
+        /* 좌측으로 20px 이동 */
+      }
 
       div {
         display: inline-block;
@@ -64,16 +65,16 @@
 
       .bg-crop {
         position: absolute;
-        top: -200px; 	
-        width: 950px; 
+        top: 200px;
+        width: 950px;
         height: 500px;
         overflow: hidden;
-    
-      .bg-project {
-          position: absolute; 
-          top: 0px; 		  
+
+        .bg-project {
+          position: absolute;
+          top: 0px;
           left: 0;
-          width: 950px; 
+          width: 950px;
           height: 500px;
         }
       }
@@ -94,6 +95,20 @@
 
       .text a {
         color: var(--color-main);
+      }
+
+      .toggle-textbox {
+        display: none;
+        /* 기본적으로 텍스트 박스 숨김 */
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        z-index: 10;
       }
 
       /* Animation Styles */
@@ -202,6 +217,15 @@
         inline-size: 100%;
       }
 
+      #textBox {
+        display: none;
+        /* 초기에는 안 보이게 설정 */
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+      }
+
 
 
       @media (orientation: landscape) {
@@ -307,45 +331,47 @@
       }
 
       displayTeamIntro();
+
+      $(document).ready(function () {
+        $("#toggleButton").click(function () {
+          $("#textBox").toggle(); // toggle()로 보여주거나 숨기기
+        });
+      });
+
     </script>
   </head>
 
   <body>
-    <div class="container">
+    <div class="container" style="float:left;">
       <br>
       <div class="has-animation animation-ltr background-white" data-delay="10">
         <p class="bigger">프로젝트:TeamPage</p>
       </div>
-
       <br>
       <br>
-      <div id="description_area" class="has-animation animation-rtl background-white" data-delay="1000" >
+      <div id="description_area" class="has-animation animation-rtl background-white" data-delay="1000">
       </div>
-
       <br>
       <br>
-
       <div class="has-animation animation-ltr" data-delay="1500">
         <p class="text txt-center">Samsung
           <a href="https://teamsparta.notion.site/SAMSUNG-3-1282dc3ef5148082922bc96ecb4fe739">Team Notion</a> <br>
           We can do it!
         </p>
       </div>
-      <br>
-      <br>
-      
-    </div>
-    <div class="has-animation animation-rtl bg-crop" data-delay="2000">
-      <img class="bg-project"
-        src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2F6bd495f5-9ce4-4ad7-ba46-fe7a79797eee%2F3%25EC%25A1%25B0_%25EC%259B%258C%25ED%2581%25AC%25ED%2594%2584%25EB%25A0%2588%25EC%259E%2584.png?table=block&id=3df863ab-579b-429e-8b88-29e7d3213a16&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=2000&userId=&cache=v2"
-        width="1200" />
     </div>
 
+    <div style="float:left;">
+      <button id="toggleButton" style="position: absolute; top: 50px; left: 1200px; z-index: 10;">제작자들</button>
+      <div id="textBox" style="position: absolute; top: 120px;left: 1070px;">박찬우(팀장), 김종하, 박성욱, 남민우, 이유민</div>
+      <div class="has-animation animation-rtl bg-crop" data-delay="2000">
+
+        <img id="bgProjectImg" class="bg-project"
+          src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2F6bd495f5-9ce4-4ad7-ba46-fe7a79797eee%2F3%25EC%25A1%25B0_%25EC%259B%258C%25ED%2581%25AC%25ED%2594%2584%25EB%25A0%2588%25EC%259E%2584.png?table=block&id=3df863ab-579b-429e-8b88-29e7d3213a16&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=2000&userId=&cache=v2"
+          width="1200" />
+      </div>
+    </div>
     <br>
-
-
-
-
   </body>
 
   </html>
