@@ -38,37 +38,112 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+
+        
         $(document).ready(function () {
-            $('.list-group-item').on('click', function (event) {
-                event.preventDefault();
-
-                const info = $(this).data('info');
-                const imgSrc = $(this).data('img');
-                const mbti = $(this).data('mbti');
-                const strength = $(this).data('strength');
-                const greeting = $(this).data('greeting');
-                const blog = $(this).data('blog');
-                const github = $(this).data('github');
-
-                const currentInfo = $('#info-display').html();
-
-                if (!currentInfo || !currentInfo.includes(info)) {
-                    $('#info-display').html(`
-                        <h5>${info}</h5>
-                        <img src="${imgSrc}" style="max-width: 100%; height: auto;" />
-                        <p>MBTI: ${mbti}</p>
-                        <p>장점: ${strength}</p>
-                        <p>인사말: ${greeting}</p>
-                        <p>블로그: <a href="${blog}" target="_blank">${blog}</a></p>
-                        <p>깃허브: <a href="${github}" target="_blank">${github}</a></p>
-                    `);
-                    $('#info-display').show();
-                } else {
-                    $('#info-display').empty();
-                    $('#info-display').hide();
-                }
-            });
+            data_processing();
         });
+
+    async function data_processing() {
+        
+        
+        // let doc;
+
+        // doc = {
+        //     info: "김종하",
+        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
+        //     mbti: "INTP",
+        //     strength: "분석적 사고",
+        //     greeting: "안녕하세요!",
+        //     blog: "https://example.com/blog1",
+        //     github: "https://github.com/example1",
+        // };
+        // await addDoc(collection(db, "Teamintro"), doc);
+
+        // doc = {
+        //     info: "이유민",
+        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
+        //     mbti: "INFJ",
+        //     strength: "창의성",
+        //     greeting: "안녕하세요!",
+        //     blog: "https://example.com/blog2",
+        //     github: "https://github.com/example2",
+        // };
+        // await addDoc(collection(db, "Teamintro"), doc);
+
+        // doc = {
+        //     info: "남민우",
+        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
+        //     mbti: "INFP",
+        //     strength: "성실함",
+        //     greeting: "안녕하세요!",
+        //     blog: "https://example.com/blog3",
+        //     github: "https://github.com/example3",
+        // };
+        // await addDoc(collection(db, "Teamintro"), doc);
+
+        // doc = {
+        //     info: "박성욱",
+        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
+        //     mbti: "ESTJ",
+        //     strength: "리더십",
+        //     greeting: "안녕하세요!",
+        //     blog: "https://example.com/blog4",
+        //     github: "https://github.com/example4",
+        // };
+        // await addDoc(collection(db, "Teamintro"), doc);
+
+        // doc = {
+        //     info: "박찬우",
+        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
+        //     mbti: "ENFP",
+        //     strength: "대화 능력",
+        //     greeting: "안녕하세요!",
+        //     blog: "https://example.com/blog5",
+        //     github: "https://github.com/example5",
+        // };
+        // await addDoc(collection(db, "Teamintro"), doc);
+
+        let temp_html = '';
+    let docs = await getDocs(collection(db, "Teamintro"));
+        docs.forEach((doc) => {
+            let row = doc.data();
+
+            let info = row['info'];
+            let imgSrc = row['img'];
+            let mbti = row['mbti'];
+            let strength = row['strength'];
+            let greeting = row['greeting'];
+            let blog = row['blog'];
+            let github = row['github'];
+
+            // 데이터 예시
+            // info: "박성욱",
+            // img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
+            // mbti: "ESTJ",
+            // strength: "리더십",
+            // greeting: "안녕하세요!",
+            // blog: "https://example.com/blog4",
+            // github: "https://github.com/example4",
+
+
+            temp_html += `
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary" 
+                data-info="${info}"
+                data-img="${imgSrc}" 
+                data-mbti="${mbti}" 
+                data-strength="${strength}" 
+                data-greeting="${greeting}"
+                data-blog="${blog}" 
+                data-github="${github}"
+                onclick="list_group_item_onClick()">${info}</a>`;
+        });
+        $('#titlebox_list').append(temp_html);
+    }
+
+
+
+
 
 
 
@@ -121,22 +196,27 @@
         .teammateinfo {
             display: none;
             /* 처음에는 숨김 */
-           background-color: pink;
+            background-color: pink;
             width: 600px;
             height: 400px;
             color: black;
-            padding: 10px;
+            padding: 50px;
             margin-left: 100px;
             border-radius: 5px;
             box-shadow: 0px 0px 3px 0px gray;
             text-align: center;
             /* 텍스트 중앙 정렬 */
         }
+
         .data-img {
-            width: 150px; /* 고정 너비 */
-            height: 150px; /* 고정 높이 */
-            object-fit: cover; /* 이미지 비율 유지 */
-            border-radius: 50%; /* 둥글게 만들기 (선택사항) */
+            width: 150px;
+            /* 고정 너비 */
+            height: 150px;
+            /* 고정 높이 */
+            object-fit: cover;
+            /* 이미지 비율 유지 */
+            border-radius: 50%;
+            /* 둥글게 만들기 (선택사항) */
         }
     </style>
 </head>
@@ -147,8 +227,8 @@
         <h1>3조 팀원소개</h1>
     </div>
     <div class="titlebox">
-        <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action list-group-item-primary" data-info="김종하"
+        <div class="list-group" id="titlebox_list">
+            <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-primary" data-info="김종하"
                 data-img="link_to_image1.jpg" data-mbti="INTP" data-strength="분석적 사고" data-greeting="안녕하세요!"
                 data-blog="https://example.com/blog1" data-github="https://github.com/example1">김종하</a>
             <a href="#" class="list-group-item list-group-item-action list-group-item-secondary" data-info="이유민"
@@ -162,12 +242,59 @@
                 data-blog="https://example.com/blog4" data-github="https://github.com/example4">박성욱</a>
             <a href="#" class="list-group-item list-group-item-action list-group-item-warning" data-info="박찬우"
                 data-img="link_to_image2.jpg" data-mbti="ENFP" data-strength="대화 능력" data-greeting="안녕하세요!"
-                data-blog="https://example.com/blog5" data-github="https://github.com/example5">박찬우</a>
+                data-blog="https://example.com/blog5" data-github="https://github.com/example5">박찬우</a> -->
         </div>
-        <div id="info-display" class="teammateinfo">           
+        <div id="info-display" class="teammateinfo">
+
         </div>
     </div>
 
+
+<script>
+
+    function list_group_item_onClick()
+    {
+            event.preventDefault();
+
+            const info = $(this).data('info');
+            const imgSrc = $(this).data('img');
+            const mbti = $(this).data('mbti');
+            const strength = $(this).data('strength');
+            const greeting = $(this).data('greeting');
+            const blog = $(this).data('blog');
+            const github = $(this).data('github');
+
+            const currentInfo = $('#info-display').html();
+
+            if (!currentInfo || !currentInfo.includes(info)) {
+                $('#info-display').html(`
+                <div class="container text-left" style="text-align: left; width: auto;">
+                    <div class="row">
+                    <div class="col-3" style="background-color: transparent; padding: 10px;">
+                            <img src="${imgSrc}" style="max-width: 100%; height: auto;" />
+                    </div>
+                    <div class="col">
+                            <h5>${info}</h5>
+                            <p>MBTI: ${mbti}</p>
+                            <p>장점: ${strength}</p>
+                            <p>인사말: ${greeting}</p>
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col">
+                            <p>블로그: <a href="${blog}" target="_blank">${blog}</a></p>
+                            <p>깃허브: <a href="${github}" target="_blank">${github}</a></p>
+                    </div>
+                    </div>
+                </div>
+                `);
+                $('#info-display').show();
+            } else {
+                $('#info-display').empty();
+                $('#info-display').hide();
+            }
+    }
+</script>
 </body>
 
 </html>
