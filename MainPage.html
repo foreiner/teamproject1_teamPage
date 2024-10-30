@@ -1,11 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TeamPage</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+        * {
+            font-family: "Gowun Dodum", sans-serif;
+        }
+
+        .main {
+            margin: 20px auto 20px auto;
+
+            background-color: white;
+            color: black;
+            width: 1200px;
+            text-align: center;
+        }
+
+        body {
+            background-color: white;
+        }
+
+        .container-fluid {
+            text-align: center;
+        }
+
+        .highlight_nav_tab_button {
+            width: 200px;
+            margin: 20px auto 20px auto;
+            padding: 0px;
+            border: 0px;
+            color: red;
+            background-color: transparent;
+            font-size: 30px;
+        }
+
+        .nav_tab_button {
+            width: 200px;
+            margin: 20px auto 20px auto;
+            padding: 0px;
+            border: 0px;
+            background-color: transparent;
+            font-size: 30px;
+        }
+
+        .Tabs {
+            width: 1200px;
+            height: 600px;
+            margin: 20px auto 20px auto;
+            background-color: grey;
+            background-image: url('images/셈성3조_로고.png');
+
+
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .etc_info {
+            margin: 100px auto 100px auto;
+
+            color: black;
+            width: 1200px;
+            text-align: center;
+        }
+    </style>
+    <script type="module">
+        $(document).ready(function () {
+            let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
+            fetch(url).then(res => res.json()).then(data => {
+                let temp = data['temp'];
+                (+temp) == temp ? $('#msg').text(temp) : $('#msg').text('Error');
+            });
+            
+        })
+
+    </script>
+    <script>
+
+        function all_slideUp() {
+            $('#testtab').slideUp();
+            $('#testtab_copy').slideUp();
+        }
+        function highlight_button(selected_button) {
+
+            for (i = 1; i < 6; i++) {
+                document.getElementById('nav_tab_button' + i).style.color = "black";
+            }
+            document.getElementById(selected_button).style.color = "grey";
+        }
+        function on_tab_button_click(button_id) {
+            let get_button_object = event.target;
+            highlight_button(button_id);
+            all_slideUp();
+
+            switch (get_button_object.outerText) {
+                case '팀 소개':
+                    $('#testtab').slideDown();
+
+                    break;
+                case '팀원 소개':
+                    $('#testtab_copy').slideDown();
+
+                    break;
+                case '프로젝트 소개':
+
+                    break;
+                case '방명록':
+
+                    break;
+                case '자유게시판':
+
+                    break;
+            }
+        }
+
+        function writeClock() {
+
+            const now = new Date();
+
+            let hour = now.getHours();
+
+            let minute = now.getMinutes();
+
+            let second = now.getSeconds();
+            
+                let temp = hour + ' : ' + minute + ' : '+ second;
+                $('#time').text(temp);
+        }
+
+
+    </script>
 </head>
+
 <body>
-    
+    <h1>
+
+    </h1>
+    <header class="p-3 text-bg-dark">
+        <div class="main">
+            <h1 class="display-5 fw-bold">samsung(3조)</h1>
+            <p style="text-align: right;">현재시간: <span id="time"></p>
+            <p style="text-align: right;">현재기온: <span id="msg"></span>도</p>
+        </div>
+
+    </header>
+
+    <div style="border: solid 3px black;"></div>
+    <header class="p-3 text-bg-dark">
+        <div class="container" style="width: 100%;">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><button id="nav_tab_button1" onclick="on_tab_button_click('nav_tab_button1')"
+                        class="nav_tab_button">팀 소개</li>
+                <li><button id="nav_tab_button2" onclick="on_tab_button_click('nav_tab_button2')"
+                        class="nav_tab_button">팀원 소개</li>
+                <li><button id="nav_tab_button3" onclick="on_tab_button_click('nav_tab_button3')"
+                        class="nav_tab_button">프로젝트 소개</li>
+                <li><button id="nav_tab_button4" onclick="on_tab_button_click('nav_tab_button4')"
+                        class="nav_tab_button">방명록</li>
+                <li><button id="nav_tab_button5" onclick="on_tab_button_click('nav_tab_button5')"
+                        class="nav_tab_button">자유게시판</li>
+            </ul>
+        </div>
+    </header>
+    <div style="border: solid 3px black;"></div>
+    </div>
+
+    </div>
+
+    <div class="Tabs">
+        <object id="testtab" type="text/html" data="tabfolder/testtab.html" width="100%" height="100%"
+            style="overflow:auto;border:0px">
+        </object>
+        <object id="testtab_copy" type="text/html" data="tabfolder/testtab.html" width="100%" height="100%"
+            style="overflow:auto;border:0px">
+        </object>
+        <div></div>
+
+    </div>
+
+
+    <div class="etc_info">
+        <p>데이터 대기중</p>
+    </div>
+    <script>
+        $('#testtab').toggle();
+        $('#testtab_copy').toggle();
+        setInterval(writeClock,1000);
+    </script>
 </body>
+
 </html>
