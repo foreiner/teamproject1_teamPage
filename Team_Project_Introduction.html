@@ -32,7 +32,21 @@
       body {
         font-family: 'Montserrat', sans-serif;
         text-align: center;
+        background-image: url('https://images.wallpaperscraft.com/image/single/laptop_cup_glasses_114948_1280x720.jpg');
+        /* 이미지 경로 */
+        background-size: cover;
+        /* 배경 이미지가 화면을 가득 채우도록 설정 */
+        background-repeat: no-repeat;
+        /* 배경 이미지 반복 방지 */
+        background-position: center;
+        /* 배경 이미지 중앙 정렬 */
       }
+
+      .container {
+        max-width: 800px;
+        text-align: center;
+        transform: translateX(-100px); /* 좌측으로 20px 이동 */
+    }
 
       div {
         display: inline-block;
@@ -40,13 +54,28 @@
 
       .bigger {
         margin: 0;
-        font-size: 60px;
+        font-size: 40px;
         font-weight: 800;
         padding: 20px;
-        text-transform: uppercase;
         color: color-mix(in oklab, var(--color-main) 40%, black);
         display: inline-block;
         position: relative;
+      }
+
+      .bg-crop {
+        position: absolute;
+        top: -200px; 	
+        width: 950px; 
+        height: 500px;
+        overflow: hidden;
+    
+      .bg-project {
+          position: absolute; 
+          top: 0px; 		  
+          left: 0;
+          width: 950px; 
+          height: 500px;
+        }
       }
 
       .text {
@@ -54,7 +83,7 @@
         width: 100%;
         line-height: 24px;
         text-align: left;
-        color: #404040;
+        color: #000000;
         padding: 20px;
         font-weight: bold;
       }
@@ -118,31 +147,33 @@
       .has-animation.animation-rtl.animate-in:after {
         animation: revealRTL 1s 0.6s ease;
       }
-      body {
-        background-image: url('https://images.wallpaperscraft.com/image/single/laptop_cup_glasses_114948_1280x720.jpg'); /* 이미지 경로 */
-        background-size: cover; /* 배경 이미지가 화면을 가득 채우도록 설정 */
-        background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
-        background-position: center; /* 배경 이미지 중앙 정렬 */
+
+      /* 택스트 백그라운드 */
+      .background-white {
+        background-color: white;
+        /* 배경을 하얗게 설정 */
+        padding: 20px;
+        /* 패딩 추가 */
+        border-radius: 10px;
+        /* 모서리 둥글게 */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        /* 그림자 추가 */
+        display: inline-block;
+        /* 텍스트 크기에 맞게 조정 */
+        margin: 0 auto;
+        /* 중앙 정렬 */
       }
 
-        /* 택스트 백그라운드 */
-        .background-white {
-          background-color: white; /* 배경을 하얗게 설정 */
-          padding: 20px; /* 패딩 추가 */
-          border-radius: 10px; /* 모서리 둥글게 */
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
-          display: inline-block; /* 텍스트 크기에 맞게 조정 */
-          margin: 0 auto; /* 중앙 정렬 */
-      }
-
-     /*호버링 코드*/
+      /*호버링 코드*/
       a {
         position: relative;
-        font-size: 1rem; /* 적절한 크기로 조정 */
-        display: inline-block; /* 텍스트 크기에 맞게 조정 */
-    }
-    
-    a::before {
+        font-size: 1rem;
+        /* 적절한 크기로 조정 */
+        display: inline-block;
+        /* 텍스트 크기에 맞게 조정 */
+      }
+
+      a::before {
         content: " ";
         display: block;
         position: absolute;
@@ -152,31 +183,33 @@
         left: 0;
         background: hsl(200 100% 80%);
         z-index: -1;
-        width: 100%; /* 가상 요소의 너비를 100%로 설정 */
-        height: 100%; /* 가상 요소의 높이를 100%로 설정 */
+        width: 100%;
+        /* 가상 요소의 너비를 100%로 설정 */
+        height: 100%;
+        /* 가상 요소의 높이를 100%로 설정 */
         transform: scaleX(0);
         transform-origin: bottom right;
         transition: transform .3s ease;
-    }
-    
-    a:hover::before {
+      }
+
+      a:hover::before {
         transform: scaleX(1);
         transform-origin: bottom left;
-    }
-      
+      }
+
       html {
         block-size: 100%;
         inline-size: 100%;
       }
-      
 
-      
+
+
       @media (orientation: landscape) {
         body {
           grid-auto-flow: column;
         }
       }
-      
+
 
       /* Keyframes */
       @keyframes revealRTL {
@@ -244,13 +277,13 @@
 
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
-          apiKey: "AIzaSyAN0UWjAOXvWjqcu-DyHZIzM4AwdFNpm6s",
-          authDomain: "teampage-f0966.firebaseapp.com",
-          projectId: "teampage-f0966",
-          storageBucket: "teampage-f0966.appspot.com",
-          messagingSenderId: "463565061092",
-          appId: "1:463565061092:web:8e293511e420b3e3ed25f1",
-          measurementId: "G-M9ZZ553ZRN"
+        apiKey: "AIzaSyAN0UWjAOXvWjqcu-DyHZIzM4AwdFNpm6s",
+        authDomain: "teampage-f0966.firebaseapp.com",
+        projectId: "teampage-f0966",
+        storageBucket: "teampage-f0966.appspot.com",
+        messagingSenderId: "463565061092",
+        appId: "1:463565061092:web:8e293511e420b3e3ed25f1",
+        measurementId: "G-M9ZZ553ZRN"
       };
 
       // Firebase 인스턴스 초기화
@@ -278,31 +311,34 @@
   </head>
 
   <body>
-    <br>
-    <div class="has-animation animation-ltr background-white" data-delay="10">
-      <p class="bigger">팀프로젝트 소개</p>
-    </div>
+    <div class="container">
+      <br>
+      <div class="has-animation animation-ltr background-white" data-delay="10">
+        <p class="bigger">프로젝트:TeamPage</p>
+      </div>
 
-    <br>
-    <br>
-    <div id="description_area" class="has-animation animation-rtl background-white" data-delay="1000">
-    </div>
+      <br>
+      <br>
+      <div id="description_area" class="has-animation animation-rtl background-white" data-delay="1000" >
+      </div>
 
-    <br>
-    <br>
-    
-    <div class="has-animation animation-ltr" data-delay="1500">
-      <p class="text txt-center">Samsung 
-        <a href="https://teamsparta.notion.site/SAMSUNG-3-1282dc3ef5148082922bc96ecb4fe739">Team Notion</a> <br>
-        We can do it!
-      </p>
+      <br>
+      <br>
+
+      <div class="has-animation animation-ltr" data-delay="1500">
+        <p class="text txt-center">Samsung
+          <a href="https://teamsparta.notion.site/SAMSUNG-3-1282dc3ef5148082922bc96ecb4fe739">Team Notion</a> <br>
+          We can do it!
+        </p>
+      </div>
+      <br>
+      <br>
+      
     </div>
-    <br>
-    <br>
-    <div class="has-animation animation-rtl" data-delay="2000">
-      <img
-        src="https://images.prismic.io/figaroimmo/943be1d1-6e3a-4c59-a5f1-97ce8b6ea147_lyon-confinement.jpg?auto=compress,format&rect=0,0,1000,667&w=720&h=480"
-        width="600" />
+    <div class="has-animation animation-rtl bg-crop" data-delay="2000">
+      <img class="bg-project"
+        src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2F6bd495f5-9ce4-4ad7-ba46-fe7a79797eee%2F3%25EC%25A1%25B0_%25EC%259B%258C%25ED%2581%25AC%25ED%2594%2584%25EB%25A0%2588%25EC%259E%2584.png?table=block&id=3df863ab-579b-429e-8b88-29e7d3213a16&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=2000&userId=&cache=v2"
+        width="1200" />
     </div>
 
     <br>
