@@ -82,14 +82,14 @@
             padding-right: 5px;
             padding-left: 5px;
             border-left: 1px solid grey;
-            width: 100px;
+            width: 120px;
         }
 
         .ReLog-Writer
         {
             display: flex;
             align-items: center;
-            /* justify-content: center; */
+            justify-content: center;
             gap: 10px;
         }
         .ReLog-Writer>button
@@ -102,24 +102,16 @@
         } 
         .Relog-Comment-Float
         {
-            width: 500px;
+            width: 600px;
         }
-
-        /* .ReLog-Block
-        {
-            display: flex;
-        } */
     </style>
 
     <script type="module">
-        //Temp Firebase Connect
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
         import { getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-        // Firebase 구성 정보 설정
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyAN0UWjAOXvWjqcu-DyHZIzM4AwdFNpm6s",
             authDomain: "teampage-f0966.firebaseapp.com",
@@ -130,7 +122,6 @@
             measurementId: "G-M9ZZ553ZRN"
         };
 
-        // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
@@ -154,25 +145,21 @@
                 date_Hour = 12;
             }
 
-            let formatDate = `${date.getMonth()}/${date.getDay()}, ${date_Hour}:${date.getMinutes()}${jyp}`;
+            let formatDate = `${date.getMonth() + 1}/${date.getDate()},`;
+            let formatTime = `${date_Hour}:${date.getMinutes()}${jyp}`;
 
             let doc = {
                 'name': name,
                 'comment': comment,
-                'date': formatDate
+                'date': formatDate,
+                'time':formatTime
             };
             await addDoc(collection(db, "DB_guestLog"), doc);
             alert('댓글이 입력되었습니다!');
             window.location.reload();
         })
 
-        $("#reLog-btn").click(async function () {
-            $('#ReLogWriter').toggle();
-        })
-
-
-        //let docs = await getDocs(collection(db, "DB_guestLog"));
-        let docs = await getDocs(query(collection(db, "DB_guestLog"), orderBy("date", "desc")));
+        let docs = await getDocs(query(collection(db, "DB_guestLog"), orderBy("date", "asc"), orderBy("time", "desc")));
         docs.forEach((doc) => {
             let row = doc.data();
             console.log(row);
@@ -180,6 +167,7 @@
             let name = row['name'];
             let comment = row['comment'];
             let date = row['date'];
+            let time = row['time'];
 
             let log_guestHtml = `
                 <div class = "Log-Block">
@@ -187,14 +175,44 @@
                         <div>${name}</div>
                         <div>${comment}</div>
                     </div>
+                    <button id = "reLog-btn" type="button" class="btn btn-link">답글</button>
                     <div class="Log-date">
-                        <div>${date}</div>
+                        <div>${date} ${time}</div>
                     </div>
                 </div>
             `;
 
             $('#LogContainer').append(log_guestHtml);
         });
+        
+        $("#reLog-btn").click(async function () {
+            alert('버튼 클릭');
+
+
+        })
+
+        // $(document).on('click', '.reLog-btn', function() {
+        //     $('.ReLog-Writer').remove();
+
+        //     let relog_guestHtml = `
+        //         <div class = "ReLog-Writer" id = "ReLogWriter">
+        //             <div class="ReLog-Name-Float">
+        //                 <input type="email" class="form-control" id="ReLog-Name" placeholder="이름">
+        //                 <label for="floatingInput"></label>
+        //             </div>
+        //             <div class="Relog-Comment-Float">
+        //                 <input type="email" class="form-control" id="ReLog-Comment" placeholder="답변을 남겨주세요">
+        //                 <label for="floatingInput"></label>
+        //             </div>
+        //             <button id="id_Write-Button" type="button" class="btn btn-outline-primary">등록</button>
+        //         </div>
+        //     `;
+        //     $(this).closest('.Log-Block').after(reLogWriterHtml);
+        // })
+        // $("#reLog-btn").click(async function () {
+        //     $(relog_guestHtml).toggle();
+        // })
+
     </script>
 </head>
 
@@ -225,7 +243,7 @@
                     <div>날짜</div>
                 </div>
             </div>
-            <div class = "ReLog-Writer" id = "ReLogWriter">
+            <!-- <div class = "ReLog-Writer" id = "ReLogWriter" style = "display:none">
                 <div class="ReLog-Name-Float">
                     <input type="email" class="form-control" id="ReLog-Name" placeholder="이름">
                     <label for="floatingInput"></label>
@@ -235,7 +253,7 @@
                     <label for="floatingInput"></label>
                 </div>
                 <button id="id_Write-Button" type="button" class="btn btn-outline-primary">등록</button>
-            </div>
+            </div> -->
             <!-- <div class="ReLog-Block" id="ReLogBlock">
                 <div class="ReLog-id">
                     <div>└</div>
