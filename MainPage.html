@@ -32,6 +32,7 @@
         .container-fluid {
             text-align: center;
         }
+
         .highlight_nav_tab_button {
             width: 200px;
             margin: 20px auto 20px auto;
@@ -41,6 +42,7 @@
             background-color: transparent;
             font-size: 30px;
         }
+
         .nav_tab_button {
             width: 200px;
             margin: 20px auto 20px auto;
@@ -62,7 +64,7 @@
             background-size: contain;
             background-repeat: no-repeat;
         }
-        
+
         .etc_info {
             margin: 100px auto 100px auto;
 
@@ -70,7 +72,6 @@
             width: 1200px;
             text-align: center;
         }
-
     </style>
     <script type="module">
         $(document).ready(function () {
@@ -79,6 +80,7 @@
                 let temp = data['temp'];
                 (+temp) == temp ? $('#msg').text(temp) : $('#msg').text('Error');
             });
+            
         })
 
     </script>
@@ -89,11 +91,11 @@
             $('#testtab_copy').slideUp();
         }
         function highlight_button(selected_button) {
-            
-            for(i =1 ; i <6 ; i++){
-                document.getElementById('nav_tab_button' + i).style.color="black";
+
+            for (i = 1; i < 6; i++) {
+                document.getElementById('nav_tab_button' + i).style.color = "black";
             }
-            document.getElementById(selected_button).style.color="grey";
+            document.getElementById(selected_button).style.color = "grey";
         }
         function on_tab_button_click(button_id) {
             let get_button_object = event.target;
@@ -120,7 +122,21 @@
                     break;
             }
         }
-        
+
+        function writeClock() {
+
+            const now = new Date();
+
+            let hour = now.getHours();
+
+            let minute = now.getMinutes();
+
+            let second = now.getSeconds();
+            
+                let temp = hour + ' : ' + minute + ' : '+ second;
+                $('#time').text(temp);
+        }
+
 
     </script>
 </head>
@@ -132,6 +148,7 @@
     <header class="p-3 text-bg-dark">
         <div class="main">
             <h1 class="display-5 fw-bold">samsung(3조)</h1>
+            <p style="text-align: right;">현재시간: <span id="time"></p>
             <p style="text-align: right;">현재기온: <span id="msg"></span>도</p>
         </div>
 
@@ -141,11 +158,16 @@
     <header class="p-3 text-bg-dark">
         <div class="container" style="width: 100%;">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><button id="nav_tab_button1" onclick="on_tab_button_click('nav_tab_button1')" class="nav_tab_button">팀 소개</li>
-                    <li><button id="nav_tab_button2" onclick="on_tab_button_click('nav_tab_button2')" class="nav_tab_button">팀원 소개</li>
-                    <li><button id="nav_tab_button3" onclick="on_tab_button_click('nav_tab_button3')" class="nav_tab_button">프로젝트 소개</li>
-                    <li><button id="nav_tab_button4" onclick="on_tab_button_click('nav_tab_button4')" class="nav_tab_button">방명록</li>
-                    <li><button id="nav_tab_button5" onclick="on_tab_button_click('nav_tab_button5')" class="nav_tab_button">자유게시판</li>
+                <li><button id="nav_tab_button1" onclick="on_tab_button_click('nav_tab_button1')"
+                        class="nav_tab_button">팀 소개</li>
+                <li><button id="nav_tab_button2" onclick="on_tab_button_click('nav_tab_button2')"
+                        class="nav_tab_button">팀원 소개</li>
+                <li><button id="nav_tab_button3" onclick="on_tab_button_click('nav_tab_button3')"
+                        class="nav_tab_button">프로젝트 소개</li>
+                <li><button id="nav_tab_button4" onclick="on_tab_button_click('nav_tab_button4')"
+                        class="nav_tab_button">방명록</li>
+                <li><button id="nav_tab_button5" onclick="on_tab_button_click('nav_tab_button5')"
+                        class="nav_tab_button">자유게시판</li>
             </ul>
         </div>
     </header>
@@ -171,7 +193,8 @@
     </div>
     <script>
         $('#testtab').toggle();
-            $('#testtab_copy').toggle();
+        $('#testtab_copy').toggle();
+        setInterval(writeClock,1000);
     </script>
 </body>
 
