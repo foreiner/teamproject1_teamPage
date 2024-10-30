@@ -28,10 +28,19 @@
         body {
             background-color: white;
         }
+
         .container-fluid {
             text-align: center;
         }
-
+        .highlight_nav_tab_button {
+            width: 200px;
+            margin: 20px auto 20px auto;
+            padding: 0px;
+            border: 0px;
+            color: red;
+            background-color: transparent;
+            font-size: 30px;
+        }
         .nav_tab_button {
             width: 200px;
             margin: 20px auto 20px auto;
@@ -40,12 +49,7 @@
             background-color: transparent;
             font-size: 30px;
         }
-        
-        .simple_lines_main {
-            width: 100%;
-            height: 15px;
-            color: black;
-        }
+
         .Tabs {
             width: 1200px;
             height: 600px;
@@ -53,93 +57,91 @@
             background-color: grey;
             background-image: url('images/셈성3조_로고.png');
 
-            
+
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;
         }
-
-        .mypostingbox {
-            width: 500px;
-            margin: 20px auto 20px auto;
-            border: 1px solid black;
-            padding: 20px;
-            border-radius: 5px;
-        }
         
-        .form-floating>input {
-            background-color: transparent;
+        .etc_info {
+            margin: 100px auto 100px auto;
+
             color: black;
+            width: 1200px;
+            text-align: center;
         }
 
-        .form-floating>label {
-            color: black;
-        }
-
-        .input-group>label {
-            background-color: transparent;
-            color: black;
-        }
-
-        .mypostingbox>button {
-            width: 100%;
-        }
     </style>
     <script type="module">
-        // Firebase SDK 라이브러리 가져오기
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        // // Firebase SDK 라이브러리 가져오기
+        // import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+        // import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        // import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+        // import { getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyC1wWny12KYkbYdIFau3Y76ok7_JNvCd_8",
-            authDomain: "team-page-project.firebaseapp.com",
-            projectId: "team-page-project",
-            storageBucket: "team-page-project.appspot.com",
-            messagingSenderId: "689429273007",
-            appId: "1:689429273007:web:1fcc407fe507231e94775a",
-            measurementId: "G-PEBGFX0KP5"
-        };
-
-
-
-
-        // Firebase 인스턴스 초기화
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        $("#postingbtn").click(async function () {
-            let image = $('#image').val();
-            let title = $('#title').val();
-            let comment = $('#comment').val();
-            let star = $('#star').val();
-
-            let doc = {
-                'image': image,
-                'title': title,
-                'comment': comment,
-                'star': star
-            };
-            await addDoc(collection(db, "movies"), doc);
-            alert('저장완료!');
-            window.location.reload();
-        })
-
+        // // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        // const firebaseConfig = {
+        //     apiKey: "AIzaSyC1wWny12KYkbYdIFau3Y76ok7_JNvCd_8",
+        //     authDomain: "team-page-project.firebaseapp.com",
+        //     projectId: "team-page-project",
+        //     storageBucket: "team-page-project.appspot.com",
+        //     messagingSenderId: "689429273007",
+        //     appId: "1:689429273007:web:1fcc407fe507231e94775a",
+        //     measurementId: "G-PEBGFX0KP5"
+        // };
+        // // Firebase 인스턴스 초기화
+        // const app = initializeApp(firebaseConfig);
+        // const db = getFirestore(app);
 
         $(document).ready(function () {
             let url = "http://spartacodingclub.shop/sparta_api/weather/seoul";
             fetch(url).then(res => res.json()).then(data => {
                 let temp = data['temp'];
-                (+temp)==temp ? $('#msg').text(temp) : $('#msg').text('Error');
-            })
+                (+temp) == temp ? $('#msg').text(temp) : $('#msg').text('Error');
+            });
         })
 
-        $("#savebtn").click(async function () {
-            $('#postingbox').toggle();
-        })
+    </script>
+    <script>
+
+        function all_slideUp() {
+            $('#testtab').slideUp();
+            $('#testtab_copy').slideUp();
+        }
+        function highlight_button(selected_button) {
+            
+            for(i =1 ; i <6 ; i++){
+                document.getElementById('nav_tab_button' + i).style.color="black";
+            }
+            document.getElementById(selected_button).style.color="grey";
+        }
+        function on_tab_button_click(button_id) {
+            let get_button_object = event.target;
+            highlight_button(button_id);
+            all_slideUp();
+
+            switch (get_button_object.outerText) {
+                case '팀 소개':
+                    $('#testtab').slideDown();
+
+                    break;
+                case '팀원 소개':
+                    $('#testtab_copy').slideDown();
+
+                    break;
+                case '프로젝트 소개':
+
+                    break;
+                case '방명록':
+
+                    break;
+                case '자유게시판':
+
+                    break;
+            }
+        }
+        
 
     </script>
 </head>
@@ -149,33 +151,49 @@
 
     </h1>
     <header class="p-3 text-bg-dark">
-    <div class="main">
-                <h1 class="display-5 fw-bold">samsung(3조)</h1>
-                <p style="text-align: right;">현재기온: <span id="msg"></span>도</p>
-    </div>
+        <div class="main">
+            <h1 class="display-5 fw-bold">samsung(3조)</h1>
+            <p style="text-align: right;">현재기온: <span id="msg"></span>도</p>
+        </div>
 
     </header>
 
     <div style="border: solid 3px black;"></div>
     <header class="p-3 text-bg-dark">
         <div class="container" style="width: 100%;">
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><button type="button"  id="team_introduce_tab_button" class="nav_tab_button">팀 소개</a></li>
-                    <li><button type="button"  id="team_member_introduce_tab_button"  class="nav_tab_button">팀원 소개</a></li>
-                    <li><button type="button"  id="project_introduce_tab_button"  class="nav_tab_button">프로젝트 소개</a></li>
-                    <li><button type="button"  id="guestbook_tab_button"  class="nav_tab_button">방명록</a></li>
-                    <li><button type="button"  id="free_board_tab_button"  class="nav_tab_button">자유게시판</a></li>
-                </ul>
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><button id="nav_tab_button1" onclick="on_tab_button_click('nav_tab_button1')" class="nav_tab_button">팀 소개</li>
+                    <li><button id="nav_tab_button2" onclick="on_tab_button_click('nav_tab_button2')" class="nav_tab_button">팀원 소개</li>
+                    <li><button id="nav_tab_button3" onclick="on_tab_button_click('nav_tab_button3')" class="nav_tab_button">프로젝트 소개</li>
+                    <li><button id="nav_tab_button4" onclick="on_tab_button_click('nav_tab_button4')" class="nav_tab_button">방명록</li>
+                    <li><button id="nav_tab_button5" onclick="on_tab_button_click('nav_tab_button5')" class="nav_tab_button">자유게시판</li>
+            </ul>
         </div>
     </header>
-                <div style="border: solid 3px black;"></div>
+    <div style="border: solid 3px black;"></div>
     </div>
 
     </div>
 
     <div class="Tabs">
+        <object id="testtab" type="text/html" data="tabfolder/testtab.html" width="100%" height="100%"
+            style="overflow:auto;border:0px">
+        </object>
+        <object id="testtab_copy" type="text/html" data="tabfolder/testtab.html" width="100%" height="100%"
+            style="overflow:auto;border:0px">
+        </object>
+        <div></div>
 
     </div>
+
+
+    <div class="etc_info">
+        <p>데이터 대기중</p>
+    </div>
+    <script>
+        $('#testtab').toggle();
+            $('#testtab_copy').toggle();
+    </script>
 </body>
 
 </html>
