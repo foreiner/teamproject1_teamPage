@@ -80,9 +80,9 @@
         .Log-date {
             display: flex;
             padding-right: 5px;
-            padding-left: 5px;
+            padding-left: 10px;
             border-left: 1px solid grey;
-            width: 120px;
+            width: 140px;
         }
 
         .ReLog-Writer
@@ -137,29 +137,37 @@
 
             let date = new Date();
             let date_Hour = date.getHours();
-            let jyp = 'Am'
-            if (date_Hour >= 12) {
-                jyp = 'Pm';
-                if (date_Hour > 12) date_Hour -= 12;
-            } else if (date_Hour === 0) {
-                date_Hour = 12;
-            }
+            let date_minu = date.getMinutes();
 
             let formatDate = `${date.getMonth() + 1}/${date.getDate()},`;
-            let formatTime = `${date_Hour}:${date.getMinutes()}${jyp}`;
 
             let doc = {
                 'name': name,
                 'comment': comment,
                 'date': formatDate,
-                'time':formatTime
+                'hour':date_Hour,
+                'minu':date_minu
             };
             await addDoc(collection(db, "DB_guestLog"), doc);
             alert('댓글이 입력되었습니다!');
             window.location.reload();
         })
 
-        let docs = await getDocs(query(collection(db, "DB_guestLog"), orderBy("date", "asc"), orderBy("time", "desc")));
+        function formatTime(hour, minu)
+        {
+            let jyp = 'Am';
+            if(hour >= 12)
+            {
+                jyp = 'Pm';
+                hour = hour > 12 ? hour - 12 : hour;
+            }
+            if (hour === 0) hour = 12;
+
+            return `${hour}:${String(minu).padStart(2, '0')}${jyp}`;
+        }
+
+        let docs = await getDocs(query(collection(db, "DB_guestLog"), 
+        orderBy("date", "asc"), orderBy("hour", "desc"), orderBy("minu", "desc")));
         docs.forEach((doc) => {
             let row = doc.data();
             console.log(row);
@@ -167,7 +175,8 @@
             let name = row['name'];
             let comment = row['comment'];
             let date = row['date'];
-            let time = row['time'];
+
+            let Time = formatTime(row['hour'], row['minu']);
 
             let log_guestHtml = `
                 <div class = "Log-Block">
@@ -177,7 +186,7 @@
                     </div>
                     <button id = "reLog-btn" type="button" class="btn btn-link">답글</button>
                     <div class="Log-date">
-                        <div>${date} ${time}</div>
+                        <div>${date} ${Time}</div>
                     </div>
                 </div>
             `;
