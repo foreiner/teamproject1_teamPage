@@ -32,7 +32,6 @@
       body {
         font-family: 'Montserrat', sans-serif;
         text-align: center;
-        background-image: url('https://images.wallpaperscraft.com/image/single/laptop_cup_glasses_114948_1280x720.jpg');
         /* 이미지 경로 */
         background-size: cover;
         /* 배경 이미지가 화면을 가득 채우도록 설정 */
@@ -43,10 +42,7 @@
       }
 
       .container {
-        max-width: 800px;
-        text-align: center;
-        transform: translateX(-100px);
-        /* 좌측으로 20px 이동 */
+        width: 1500px;
       }
 
       div {
@@ -64,14 +60,13 @@
       }
 
       .bg-crop {
-        position: absolute;
-        top: 200px;
-        width: 950px;
+        position: fixed;
+        width: 50%;
         height: 500px;
         overflow: hidden;
 
         .bg-project {
-          position: absolute;
+          position: fixed;
           top: 0px;
           left: 0;
           width: 950px;
@@ -95,20 +90,6 @@
 
       .text a {
         color: var(--color-main);
-      }
-
-      .toggle-textbox {
-        display: none;
-        /* 기본적으로 텍스트 박스 숨김 */
-        position: absolute;
-        top: -50px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: white;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        z-index: 10;
       }
 
       /* Animation Styles */
@@ -342,7 +323,8 @@
   </head>
 
   <body>
-    <div class="container" style="float:left;">
+    <div class="container ">
+
       <br>
       <div class="has-animation animation-ltr background-white" data-delay="10">
         <p class="bigger">프로젝트:TeamPage</p>
@@ -359,19 +341,15 @@
           We can do it!
         </p>
       </div>
-    </div>
-
-    <div style="float:left;">
-      <button id="toggleButton" style="position: absolute; top: 50px; left: 1200px; z-index: 10;">제작자들</button>
-      <div id="textBox" style="position: absolute; top: 120px;left: 1070px;">박찬우(팀장), 김종하, 박성욱, 남민우, 이유민</div>
-      <div class="has-animation animation-rtl bg-crop" data-delay="2000">
-
+      <br>
+      <div><button  style="margin: auto 0 20px;" id="toggleButton">Wireframe</button></div>
+      <div id="textBox">박찬우(팀장), 김종하, 박성욱, 남민우, 이유민
         <img id="bgProjectImg" class="bg-project"
           src="https://teamsparta.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F83c75a39-3aba-4ba4-a792-7aefe4b07895%2F6bd495f5-9ce4-4ad7-ba46-fe7a79797eee%2F3%25EC%25A1%25B0_%25EC%259B%258C%25ED%2581%25AC%25ED%2594%2584%25EB%25A0%2588%25EC%259E%2584.png?table=block&id=3df863ab-579b-429e-8b88-29e7d3213a16&spaceId=83c75a39-3aba-4ba4-a792-7aefe4b07895&width=2000&userId=&cache=v2"
           width="1200" />
       </div>
+      <br>
     </div>
-    <br>
   </body>
 
   </html>
