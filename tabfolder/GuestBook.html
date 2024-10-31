@@ -84,26 +84,6 @@
             border-left: 1px solid grey;
             width: 140px;
         }
-
-        .ReLog-Writer
-        {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .ReLog-Writer>button
-        {
-            margin-bottom: 25px;
-        }
-        .ReLog-Name-Float
-        {
-            width: 100px;
-        } 
-        .Relog-Comment-Float
-        {
-            width: 600px;
-        }
     </style>
 
     <script type="module">
@@ -184,7 +164,6 @@
                         <div>${name}</div>
                         <div>${comment}</div>
                     </div>
-                    <button id = "reLog-btn" type="button" class="btn btn-link">답글</button>
                     <div class="Log-date">
                         <div>${date} ${Time}</div>
                     </div>
@@ -193,34 +172,6 @@
 
             $('#LogContainer').append(log_guestHtml);
         });
-        
-        $("#reLog-btn").click(async function () {
-            alert('버튼 클릭');
-
-
-        })
-
-        // $(document).on('click', '.reLog-btn', function() {
-        //     $('.ReLog-Writer').remove();
-
-        //     let relog_guestHtml = `
-        //         <div class = "ReLog-Writer" id = "ReLogWriter">
-        //             <div class="ReLog-Name-Float">
-        //                 <input type="email" class="form-control" id="ReLog-Name" placeholder="이름">
-        //                 <label for="floatingInput"></label>
-        //             </div>
-        //             <div class="Relog-Comment-Float">
-        //                 <input type="email" class="form-control" id="ReLog-Comment" placeholder="답변을 남겨주세요">
-        //                 <label for="floatingInput"></label>
-        //             </div>
-        //             <button id="id_Write-Button" type="button" class="btn btn-outline-primary">등록</button>
-        //         </div>
-        //     `;
-        //     $(this).closest('.Log-Block').after(reLogWriterHtml);
-        // })
-        // $("#reLog-btn").click(async function () {
-        //     $(relog_guestHtml).toggle();
-        // })
 
     </script>
 </head>
@@ -242,38 +193,15 @@
             </div>
         </div>
         <div class="Log-Container" id="LogContainer">
-            <div class="Log-Block" id="LogBlock">
+            <!-- <div class="Log-Block" id="LogBlock">
                 <div class="Log-id">
                     <div>이름</div>
                     <div>댓글</div>
                 </div>
-                <button id = "reLog-btn" type="button" class="btn btn-link">답글</button>
                 <div class="Log-date">
                     <div>날짜</div>
                 </div>
-            </div>
-            <!-- <div class = "ReLog-Writer" id = "ReLogWriter" style = "display:none">
-                <div class="ReLog-Name-Float">
-                    <input type="email" class="form-control" id="ReLog-Name" placeholder="이름">
-                    <label for="floatingInput"></label>
-                </div>
-                <div class="Relog-Comment-Float">
-                    <input type="email" class="form-control" id="ReLog-Comment" placeholder="답변을 남겨주세요">
-                    <label for="floatingInput"></label>
-                </div>
-                <button id="id_Write-Button" type="button" class="btn btn-outline-primary">등록</button>
             </div> -->
-            <!-- <div class="ReLog-Block" id="ReLogBlock">
-                <div class="ReLog-id">
-                    <div>└</div>
-                    <div>이름</div>
-                    <div>댓글</div>
-                </div>
-                <div class="ReLog-date">
-                    <div>날짜</div>
-                </div>
-            </div> -->
-
         </div>
     </div>
 
