@@ -16,14 +16,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <title>팀원 소개</title>
     <script type="module">
-        /* 내용물을 정렬 */
-        // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
-
-
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
             apiKey: "AIzaSyAN0UWjAOXvWjqcu-DyHZIzM4AwdFNpm6s",
             authDomain: "teampage-f0966.firebaseapp.com",
@@ -34,227 +29,103 @@
             measurementId: "G-M9ZZ553ZRN"
         };
 
-        // Firebase 인스턴스 초기화
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-
-        
         $(document).ready(function () {
             data_processing();
         });
 
-    async function data_processing() {
-        
-        
-        // let doc;
+        async function data_processing() {
+            let temp_html = '';
+            let docs = await getDocs(collection(db, "Teamintro"));
+            docs.forEach((doc) => {
+                let row = doc.data();
+                let info = row['info'];
+                let imgSrc = row['img'];
+                let mbti = row['mbti'];
+                let strength = row['strength'];
+                let greeting = row['greeting'];
+                let blog = row['blog'];
+                let github = row['github'];
 
-        // doc = {
-        //     info: "김종하",
-        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
-        //     mbti: "INTP",
-        //     strength: "분석적 사고",
-        //     greeting: "안녕하세요!",
-        //     blog: "https://example.com/blog1",
-        //     github: "https://github.com/example1",
-        // };
-        // await addDoc(collection(db, "Teamintro"), doc);
-
-        // doc = {
-        //     info: "이유민",
-        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
-        //     mbti: "INFJ",
-        //     strength: "창의성",
-        //     greeting: "안녕하세요!",
-        //     blog: "https://example.com/blog2",
-        //     github: "https://github.com/example2",
-        // };
-        // await addDoc(collection(db, "Teamintro"), doc);
-
-        // doc = {
-        //     info: "남민우",
-        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
-        //     mbti: "INFP",
-        //     strength: "성실함",
-        //     greeting: "안녕하세요!",
-        //     blog: "https://example.com/blog3",
-        //     github: "https://github.com/example3",
-        // };
-        // await addDoc(collection(db, "Teamintro"), doc);
-
-        // doc = {
-        //     info: "박성욱",
-        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
-        //     mbti: "ESTJ",
-        //     strength: "리더십",
-        //     greeting: "안녕하세요!",
-        //     blog: "https://example.com/blog4",
-        //     github: "https://github.com/example4",
-        // };
-        // await addDoc(collection(db, "Teamintro"), doc);
-
-        // doc = {
-        //     info: "박찬우",
-        //     img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
-        //     mbti: "ENFP",
-        //     strength: "대화 능력",
-        //     greeting: "안녕하세요!",
-        //     blog: "https://example.com/blog5",
-        //     github: "https://github.com/example5",
-        // };
-        // await addDoc(collection(db, "Teamintro"), doc);
-
-        let temp_html = '';
-    let docs = await getDocs(collection(db, "Teamintro"));
-        docs.forEach((doc) => {
-            let row = doc.data();
-
-            let info = row['info'];
-            let imgSrc = row['img'];
-            let mbti = row['mbti'];
-            let strength = row['strength'];
-            let greeting = row['greeting'];
-            let blog = row['blog'];
-            let github = row['github'];
-
-            // 데이터 예시
-            // info: "박성욱",
-            // img: "https://w7.pngwing.com/pngs/753/432/png-transparent-user-profile-2018-in-sight-user-conference-expo-business-default-business-angle-service-people.png",
-            // mbti: "ESTJ",
-            // strength: "리더십",
-            // greeting: "안녕하세요!",
-            // blog: "https://example.com/blog4",
-            // github: "https://github.com/example4",
-
-
-            temp_html += `
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary" 
-                data-info="${info}"
-                data-img="${imgSrc}" 
-                data-mbti="${mbti}" 
-                data-strength="${strength}" 
-                data-greeting="${greeting}"
-                data-blog="${blog}" 
-                data-github="${github}"
-                onclick="list_group_item_onClick()">${info}</a>`;
-        });
-        $('#titlebox_list').append(temp_html);
-    }
-
-
-
-
-
-
+                temp_html += `
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary" 
+                    data-info="${info}"
+                    data-img="${imgSrc}" 
+                    data-mbti="${mbti}" 
+                    data-strength="${strength}" 
+                    data-greeting="${greeting}"
+                    data-blog="${blog}" 
+                    data-github="${github}"
+                    onclick="list_group_item_onClick()">${info}</a>`;
+            });
+            $('#titlebox_list').append(temp_html);
+        }
 
     </script>
     <style>
-        .mytitle {
-            margin-top: 0px;
-            color: black;
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
 
-            height: 250px;
-
-            /* 내용물을 정렬 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_R26WwQsS7MTWtFgj72NbixM_yFK1A7WwEA&s');
-            background-position: center;
-            background-size: cover;
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         .titlebox {
+            background-image: url('https://img.freepik.com/free-vector/white-desktop-background-minimal-abstract-design-vector_53876-135920.jpg?t=st=1730336020~exp=1730339620~hmac=7f45fb1a1461a70c54fe342f1638dddcea52b3e017d1bd27d345ff2f1574fc3c&w=1380');
+            background-position: center;
+            background-size: cover;
 
             margin: 30px auto 0 auto;
-            width: 900px;
+            width: 899px;
             height: 500px;
             position: relative;
             border-radius: 5px;
             box-shadow: 0px 0px 3px 0px blue;
             display: flex;
             align-items: center;
-            /* 수직 중앙 정렬 */
             justify-content: center;
-            /* 수평 중앙 정렬 */
         }
-
 
         .list-group {
             position: absolute;
-            /* 절대 위치 설정 */
             top: 0;
-            /* 상단에 고정 */
             left: 0;
-            /* 왼쪽에 고정 */
             margin: 20px;
-            /* 상단과 왼쪽 여백 추가 */
         }
 
         .teammateinfo {
             display: none;
-            /* 처음에는 숨김 */
-            background-color: pink;
-            width: 600px;
-            height: 400px;
+            background-color: papayawhip;
+            width: 500px;
+            height: 370px;
             color: black;
             padding: 50px;
             margin-left: 100px;
             border-radius: 5px;
             box-shadow: 0px 0px 3px 0px gray;
             text-align: center;
-            /* 텍스트 중앙 정렬 */
         }
 
         .data-img {
             width: 150px;
-            /* 고정 너비 */
             height: 150px;
-            /* 고정 높이 */
             object-fit: cover;
-            /* 이미지 비율 유지 */
             border-radius: 50%;
-            /* 둥글게 만들기 (선택사항) */
         }
     </style>
 </head>
 
 <body>
 
-    <div class="mytitle">
-        <h1>3조 팀원소개</h1>
-    </div>
+    <div class="mytitle"></div>
     <div class="titlebox">
-        <div class="list-group" id="titlebox_list">
-            <!-- <a href="#" class="list-group-item list-group-item-action list-group-item-primary" data-info="김종하"
-                data-img="link_to_image1.jpg" data-mbti="INTP" data-strength="분석적 사고" data-greeting="안녕하세요!"
-                data-blog="https://example.com/blog1" data-github="https://github.com/example1">김종하</a>
-            <a href="#" class="list-group-item list-group-item-action list-group-item-secondary" data-info="이유민"
-                data-img="link_to_image2.jpg" data-mbti="INFJ" data-strength="창의성" data-greeting="안녕하세요!"
-                data-blog="https://example.com/blog2" data-github="https://github.com/example2">이유민</a>
-            <a href="#" class="list-group-item list-group-item-action list-group-item-success" data-info="남민우"
-                data-img="link_to_image3.jpg" data-mbti="INFP" data-strength="성실함" data-greeting="안녕하세요!"
-                data-blog="https://example.com/blog3" data-github="https://github.com/example3">남민우</a>
-            <a href="#" class="list-group-item list-group-item-action list-group-item-danger" data-info="박성욱"
-                data-img="link_to_image4.jpg" data-mbti="ESTJ" data-strength="리더십" data-greeting="안녕하세요!"
-                data-blog="https://example.com/blog4" data-github="https://github.com/example4">박성욱</a>
-            <a href="#" class="list-group-item list-group-item-action list-group-item-warning" data-info="박찬우"
-                data-img="link_to_image2.jpg" data-mbti="ENFP" data-strength="대화 능력" data-greeting="안녕하세요!"
-                data-blog="https://example.com/blog5" data-github="https://github.com/example5">박찬우</a> -->
-        </div>
-        <div id="info-display" class="teammateinfo">
-
-        </div>
+        <div class="list-group" id="titlebox_list"></div>
+        <div id="info-display" class="teammateinfo"></div>
     </div>
 
-
-<script>
-
-    function list_group_item_onClick()
-    {
-
+    <script>
+        function list_group_item_onClick() {
             const info = event.target.getAttribute("data-info");
             const imgSrc = event.target.getAttribute('data-img');
             const mbti = event.target.getAttribute('data-mbti');
@@ -292,8 +163,8 @@
                 $('#info-display').empty();
                 $('#info-display').hide();
             }
-    }
-</script>
+        }
+    </script>
 </body>
 
 </html>
