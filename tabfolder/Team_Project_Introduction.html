@@ -25,6 +25,14 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+      * {
+        font-family: "Gowun Dodum", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+
       :root {
         --color-main: rgb(124, 18, 211);
       }
@@ -111,6 +119,8 @@
       .has-animation.animate-in:after {
         content: '';
         position: absolute;
+        border-radius: 10px;
+        /* 모서리 둥글게 */
         top: 0;
         right: 0;
         height: 100%;
@@ -152,8 +162,10 @@
         /* 패딩 추가 */
         border-radius: 10px;
         /* 모서리 둥글게 */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
         /* 그림자 추가 */
+        border: 1px solid rgb(0, 0, 0);
+        /*테두리 추가*/
         display: inline-block;
         /* 텍스트 크기에 맞게 조정 */
         margin: 0 auto;
