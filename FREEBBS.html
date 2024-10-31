@@ -24,7 +24,7 @@
         // Firebase SDK 라이브러리 가져오기
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
+        import { query, orderBy } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -45,29 +45,30 @@
         //  recordbtn = recording button = 기록버튼
 
         $("#recordbtn").click(async function () {
-            let image = $('#image').val();
-            let who = $('#who').val();
-            let title = $('#title').val();
-            let content = $('#content').val();
+    let image = $('#image').val();
+    let who = $('#who').val();
+    let title = $('#title').val();
+    let content = $('#content').val();
 
-            let doc = {
-                'image': image,
-                'who': who,
-                'title': title,
-                'content': content,
+    let doc = {
+        'image': image,
+        'who': who,
+        'title': title,
+        'content': content,
+        'createdAt': new Date() // 현재 시간 저장
+    };
+    await addDoc(collection(db, "postrecord"), doc);
+    alert('게시 완료!');
+    window.location.reload();
+});
 
-            };
-            await addDoc(collection(db, "postrecord"), doc);
-            alert('게시 완료!');
-            window.location.reload();
-        })
 
 
         $("#postingbtn").click(async function () {
             $('#myptbx').toggle();
         })
 
-        let docs = await getDocs(collection(db, "postrecord"));
+        let docs = await getDocs(query(collection(db, "postrecord"), orderBy("createdAt", "desc")));
         docs.forEach((doc) => {
             let row = doc.data();
             let docId = doc.id;
@@ -392,9 +393,7 @@
             align-items: center;
             justify-content: center;
 
-            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_R26WwQsS7MTWtFgj72NbixM_yFK1A7WwEA&s');
-            background-position: center;
-            background-size: cover;
+            
         }
 
         .mytitle>button {
@@ -455,7 +454,7 @@
             /* 이미지 비율 유지하며 잘라내기 */
         }
 
-        .mytitle>p {
+        .mytitle>h1 {
 
             text-decoration: underline;
             color: blueviolet;
@@ -533,8 +532,8 @@
 
 <body>
     <div class="mytitle">
-        <h1>3조 자유게시판</h1>
-        <p>인상 깊었던 일이나 자랑하고 싶은 것을 마음껏 게시하세요!</p>
+        
+        <h2>인상 깊었던 일이나 자랑하고 싶은 것을 마음껏 게시하세요!</h2>
         <span id="postingbtn" class="container">
             <a data-animation="ripple"> <span style="font-weight: bold;">작성하기</span></a>
         </span>
