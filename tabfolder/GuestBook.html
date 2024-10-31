@@ -9,9 +9,10 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        .tempTitle {
-            background-color: skyblue;
-            height: 200px;
+        @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+        * {
+            font-family: 'Gowun Dodum', sans-serif;
         }
 
         .Log-Writer {
@@ -51,40 +52,63 @@
             width: 1000px;
             height: 500px;
             margin: 20px auto 50px auto;
+
         }
 
         .Log-Block {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height:30px;
+            height: 30px;
             border-bottom: 1px solid gray;
         }
-
-        .Log-id
+        .Log-Block>button
         {
+            margin-left: auto;
+        }
+        .Log-id {
             padding-left: 5px;
             display: flex;
-            gap : 10px;
+            gap: 10px;
         }
-        .Log-id div:first-child
-        {
+
+        .Log-id div:first-child {
             width: 100px;
             border-right: 1px solid grey;
             padding-left: 10px;
         }
-        /* .log-id div:last-child
-        {
-            width:100px;
-        } */
-        .Log-date
-        {
+        .Log-date {
             display: flex;
             padding-right: 5px;
-            padding-left : 5px;
+            padding-left: 5px;
             border-left: 1px solid grey;
             width: 100px;
         }
+
+        .ReLog-Writer
+        {
+            display: flex;
+            align-items: center;
+            /* justify-content: center; */
+            gap: 10px;
+        }
+        .ReLog-Writer>button
+        {
+            margin-bottom: 25px;
+        }
+        .ReLog-Name-Float
+        {
+            width: 100px;
+        } 
+        .Relog-Comment-Float
+        {
+            width: 500px;
+        }
+
+        /* .ReLog-Block
+        {
+            display: flex;
+        } */
     </style>
 
     <script type="module">
@@ -97,13 +121,13 @@
         // Firebase 구성 정보 설정
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
         const firebaseConfig = {
-            apiKey: "AIzaSyA4Y54HVRZ3KCqH_loymnfiN0FBzP-03f0",
-            authDomain: "bcpractice-279a6.firebaseapp.com",
-            projectId: "bcpractice-279a6",
-            storageBucket: "bcpractice-279a6.appspot.com",
-            messagingSenderId: "484915814676",
-            appId: "1:484915814676:web:d9db8eee6ae77395bee201",
-            measurementId: "G-M57RYD7QY6"
+            apiKey: "AIzaSyAN0UWjAOXvWjqcu-DyHZIzM4AwdFNpm6s",
+            authDomain: "teampage-f0966.firebaseapp.com",
+            projectId: "teampage-f0966",
+            storageBucket: "teampage-f0966.appspot.com",
+            messagingSenderId: "463565061092",
+            appId: "1:463565061092:web:8e293511e420b3e3ed25f1",
+            measurementId: "G-M9ZZ553ZRN"
         };
 
         // Firebase 인스턴스 초기화
@@ -142,8 +166,13 @@
             window.location.reload();
         })
 
+        $("#reLog-btn").click(async function () {
+            $('#ReLogWriter').toggle();
+        })
+
+
         //let docs = await getDocs(collection(db, "DB_guestLog"));
-        let docs = await getDocs(query(collection(db, "DB_guestLog"), orderBy("date", "asc")));
+        let docs = await getDocs(query(collection(db, "DB_guestLog"), orderBy("date", "desc")));
         docs.forEach((doc) => {
             let row = doc.data();
             console.log(row);
@@ -170,34 +199,57 @@
 </head>
 
 <body>
-    <div class="tempTitle">
-        <h1>나중에 수정될 내용입니다</h1>
-    </div>
-    <div class="Log-Writer">
-        <h3 class="Log-Title">방명록을 남겨주세요</h3>
-        <div class="Log-Content">
-            <div class="GuestName_Float">
-                <input type="email" class="form-control" id="guest_name" placeholder="이름">
-                <label for="floatingInput"></label>
+    <div class = "Log-Body" id = "logBody">
+        <div class="Log-Writer">
+            <h3 class="Log-Title">방명록을 남겨주세요</h3>
+            <div class="Log-Content">
+                <div class="GuestName_Float">
+                    <input type="email" class="form-control" id="guest_name" placeholder="이름">
+                    <label for="floatingInput"></label>
+                </div>
+                <div class="GuestComment_Float">
+                    <input type="email" class="form-control" id="guest_comment" placeholder="댓글을 남겨주세요!">
+                    <label for="floatingInput"></label>
+                </div>
+                <button id="id_Write-Button" type="button" class="btn btn-outline-primary">기록하기</button>
             </div>
-            <div class="GuestComment_Float">
-                <input type="email" class="form-control" id="guest_comment" placeholder="댓글을 남겨주세요!">
-                <label for="floatingInput"></label>
+        </div>
+        <div class="Log-Container" id="LogContainer">
+            <div class="Log-Block" id="LogBlock">
+                <div class="Log-id">
+                    <div>이름</div>
+                    <div>댓글</div>
+                </div>
+                <button id = "reLog-btn" type="button" class="btn btn-link">답글</button>
+                <div class="Log-date">
+                    <div>날짜</div>
+                </div>
             </div>
-            <button id="id_Write-Button" type="button" class="btn btn-outline-primary">기록하기</button>
+            <div class = "ReLog-Writer" id = "ReLogWriter">
+                <div class="ReLog-Name-Float">
+                    <input type="email" class="form-control" id="ReLog-Name" placeholder="이름">
+                    <label for="floatingInput"></label>
+                </div>
+                <div class="Relog-Comment-Float">
+                    <input type="email" class="form-control" id="ReLog-Comment" placeholder="답변을 남겨주세요">
+                    <label for="floatingInput"></label>
+                </div>
+                <button id="id_Write-Button" type="button" class="btn btn-outline-primary">등록</button>
+            </div>
+            <!-- <div class="ReLog-Block" id="ReLogBlock">
+                <div class="ReLog-id">
+                    <div>└</div>
+                    <div>이름</div>
+                    <div>댓글</div>
+                </div>
+                <div class="ReLog-date">
+                    <div>날짜</div>
+                </div>
+            </div> -->
+
         </div>
     </div>
-    <div class="Log-Container" id = "LogContainer">
-        <!-- <div class="Log-Block" id="LogBlock">
-            <div class="Log-id">
-                <div>이름</div>
-                <div>댓글</div>
-            </div>
-            <div class="Log-date">
-                <div>날짜</div>
-            </div>
-        </div> -->
-    </div>
+
 </body>
 
 </html>
