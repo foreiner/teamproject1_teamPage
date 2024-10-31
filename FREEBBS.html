@@ -45,22 +45,22 @@
         //  recordbtn = recording button = 기록버튼
 
         $("#recordbtn").click(async function () {
-    let image = $('#image').val();
-    let who = $('#who').val();
-    let title = $('#title').val();
-    let content = $('#content').val();
+            let image = $('#image').val();
+            let who = $('#who').val();
+            let title = $('#title').val();
+            let content = $('#content').val();
 
-    let doc = {
-        'image': image,
-        'who': who,
-        'title': title,
-        'content': content,
-        'createdAt': new Date() // 현재 시간 저장
-    };
-    await addDoc(collection(db, "postrecord"), doc);
-    alert('게시 완료!');
-    window.location.reload();
-});
+            let doc = {
+                'image': image,
+                'who': who,
+                'title': title,
+                'content': content,
+                'createdAt': new Date() // 현재 시간 저장
+            };
+            await addDoc(collection(db, "postrecord"), doc);
+            alert('게시 완료!');
+            window.location.reload();
+        });
 
 
 
@@ -393,7 +393,7 @@
             align-items: center;
             justify-content: center;
 
-            
+
         }
 
         .mytitle>button {
@@ -532,7 +532,7 @@
 
 <body>
     <div class="mytitle">
-        
+
         <h2>인상 깊었던 일이나 자랑하고 싶은 것을 마음껏 게시하세요!</h2>
         <span id="postingbtn" class="container">
             <a data-animation="ripple"> <span style="font-weight: bold;">작성하기</span></a>
@@ -592,8 +592,4 @@
     </div>
 </body>
 
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> d4f293d92b21eaa83cc7108c22695ac1e37ea64a
